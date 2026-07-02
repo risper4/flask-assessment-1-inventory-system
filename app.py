@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from data import Product, products, get_product_details
+from data import Product, products
 
 app = Flask(__name__)
 
@@ -7,7 +7,7 @@ app = Flask(__name__)
 # GET : Retrieves all products
 @app.route('/inventory', methods=['GET'])
 def show_products() :
-    return jsonify(p.to_dict() for p in products)
+    return jsonify([p.to_dict() for p in products])
 
 
 # GET : Retrieves a specific product
