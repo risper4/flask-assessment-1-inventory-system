@@ -12,7 +12,9 @@ class Product() :
         return {'id' : self.id, 'name' : self.name}
     
 # A list to store all the project instances
-products = []
+products = [
+    Product(1, 'Peak milk')
+]
 
 
 # Finds more product's details using a barcode from the api

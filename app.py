@@ -13,9 +13,9 @@ def show_products() :
 # GET : Retrieves a specific product
 @app.route('/inventory/<int:id>', methods=['GET'])
 def show_product(id) :
-    event = next((p for p in products if p.id == id), None)
-    if event :
-        return jsonify(event.to_dict()), 200
+    product = next((p for p in products if p.id == id), None)
+    if product :
+        return jsonify(product.to_dict()), 200
     else : 
         return jsonify("Product not found"), 404
 
@@ -28,6 +28,18 @@ def create_product() :
     new_product = Product(id=new_id, name=data['name'])
     products.append(new_product)
     return jsonify(new_product.to_dict()), 200
+
+
+@app.route('/inventory/<int:id>',methods=['PATCH'])
+def update_product(id) :
+    data = request.get_json()
+    product = next((p for p in products if p.id == id), None)
+    if not product:
+        return jsonify('Product not found'), 404
+    else :
+        if 'name' in data :
+            product.name = data['name']
+    return jsonify(product.to_dict())
 
 if __name__ == '__main__' :
     app.run(port=5555, debug=True)
