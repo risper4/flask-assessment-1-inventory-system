@@ -30,6 +30,7 @@ def create_product() :
     return jsonify(new_product.to_dict()), 200
 
 
+# UPDATES : Updates a specific product's info
 @app.route('/inventory/<int:id>',methods=['PATCH'])
 def update_product(id) :
     data = request.get_json()
@@ -40,6 +41,17 @@ def update_product(id) :
         if 'name' in data :
             product.name = data['name']
     return jsonify(product.to_dict())
+
+
+# DELETE : Deletes a specific product
+@app.route('/inventory/<int:id>', methods=['DELETE'])
+def delete_product(id) :
+    global products
+    product = next((p for p in products if p.id == id), None)
+    if not product :
+        return jsonify('Product not found'), 404
+    products = [p for p in products if p.id != id]
+    return jsonify('Product deleted'), 200
 
 if __name__ == '__main__' :
     app.run(port=5555, debug=True)
