@@ -50,5 +50,10 @@ def delete_product(args) :
     else :
         products = [p for p in products if p.id != id]
         return('✅ Product successfully added')
+    
+
+def get_product_details(args) :
+    barcode = args.barcode
+    get_product_details(barcode)
 
     
