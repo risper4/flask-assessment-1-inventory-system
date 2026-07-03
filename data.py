@@ -4,16 +4,17 @@ from flask import make_response, jsonify
 
 # Product class
 class Product() :
-    def __init__(self, id, name):
+    def __init__(self, id, name, price):
         self.id = id
         self.name = name
+        self.price = price
 
     def to_dict(self) :
-        return {'id' : self.id, 'name' : self.name}
+        return {'id' : self.id, 'name' : self.name, 'price' : self.price}
     
 # A list to store all the project instances
 products = [
-    Product(1, 'Peak milk')
+    Product(1, 'Peak milk', 200)
 ]
 
 

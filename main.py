@@ -23,7 +23,7 @@ def show_product_by_id(args) :
 
 def add_product(args) :
     new_id = max((p.id for p in products)) + 1 if products else 1
-    new_product = Product(id=new_id, name=args.name)
+    new_product = Product(id=new_id, name=args.name, price=args.price)
     products.append(new_product)
     print(f'✅ Product {args.name} added successfully added')
 
@@ -35,7 +35,7 @@ def update_product(args) :
         print('❌ Product not found')
         return
     else :
-        product.name = args.name
+        product.price = args.price
         print(f'✅ Product {args.id} successfully updated')
         print(product.to_dict())
 
@@ -72,6 +72,6 @@ def main() :
     display_product_by_id.set_defaults(func=show_product_by_id)
 
 
-    #
+    #Add a new product
 
     

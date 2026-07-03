@@ -25,7 +25,7 @@ def show_product(id) :
 def create_product() :
     data = request.get_json()
     new_id = max((p.id for p in products)) + 1 if products else 1
-    new_product = Product(id=new_id, name=data['name'])
+    new_product = Product(id=new_id, name=data['name'], price=data['price'])
     products.append(new_product)
     return jsonify(new_product.to_dict()), 200
 
@@ -40,6 +40,8 @@ def update_product(id) :
     else :
         if 'name' in data :
             product.name = data['name']
+        elif 'price' in data :
+            product.price = data['price']
     return jsonify(product.to_dict())
 
 
