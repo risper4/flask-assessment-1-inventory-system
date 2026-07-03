@@ -66,4 +66,12 @@ def main() :
     display_all_products = subparser.add_parser('inventory', help='Displays all products')
     display_all_products.set_defaults(func=show_products)
 
+    #Display a product by id
+    display_product_by_id = subparser.add_parser('display-product', help='Dispays a product by its id')
+    display_product_by_id.add_argument('--id')
+    display_product_by_id.set_defaults(func=show_product_by_id)
+
+
+    #
+
     
