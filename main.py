@@ -56,4 +56,14 @@ def get_product_details(args) :
     barcode = args.barcode
     get_product_details(barcode)
 
+
+def main() :
+    parser = argparse.ArgumentParser(description='Inventory Mnagement')
+    subparser = parser.add_subparsers()
+
+
+    #Displaying all products
+    display_all_products = subparser.add_parser('inventory', help='Displays all products')
+    display_all_products.set_defaults(func=show_products)
+
     
