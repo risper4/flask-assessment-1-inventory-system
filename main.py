@@ -21,7 +21,7 @@ def show_product_by_id(args) :
         print('❌ Product not found')
 
 
-def add_product(args) :
+def create_product(args) :
     new_id = max((p.id for p in products)) + 1 if products else 1
     new_product = Product(id=new_id, name=args.name, price=args.price)
     products.append(new_product)
@@ -68,10 +68,14 @@ def main() :
 
     #Display a product by id
     display_product_by_id = subparser.add_parser('display-product', help='Dispays a product by its id')
-    display_product_by_id.add_argument('--id')
+    display_product_by_id.add_argument('--id', required=True, type=int)
     display_product_by_id.set_defaults(func=show_product_by_id)
 
 
     #Add a new product
+    add_product = subparser.add_parser('add-product', help='Adds a new product to inventory')
+    add_product.add_argument('--name', required=True)
+    add_product.add_argument('--price', required=True, type=int)
+    add_product.set_defaults(func=create_product)
 
     
