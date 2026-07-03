@@ -25,4 +25,17 @@ def add_product(args) :
     new_id = max((p.id for p in products)) + 1 if products else 1
     new_product = Product(id=new_id, name=args.name)
     products.append(new_product)
-    print('✅ Product added successfully added')
+    print(f'✅ Product {args.name} added successfully added')
+
+
+def update_product(args) :
+    id = args.id
+    product = next((p for p in products if p.id == id), None)
+    if not product :
+        print('❌ Product not found')
+        return
+    else :
+        product.name = args.name
+        print(f'✅ Product {args.id} successfully updated')
+        print(product.to_dict())
+    
