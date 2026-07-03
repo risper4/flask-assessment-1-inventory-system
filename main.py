@@ -91,4 +91,10 @@ def main() :
     remove_product.add_argument('--id', required=True, type=int)
     remove_product.set_defaults(func=delete_product)
 
+
+    #Find details in the api
+    find_details = subparser.add_parser('find-details', help='Finds a product details in the api')
+    find_details.add_argument('--barcode')
+    find_details.set_defaults(func=get_product_details)
+
     
