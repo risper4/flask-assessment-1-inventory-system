@@ -86,6 +86,9 @@ def main() :
     update_item.set_defaults(func=update_product)
 
 
-    #
+    #Delete a specific product
+    remove_product = subparser.add_parser('delete-product', help='Deletes a specific product')
+    remove_product.add_argument('--id', required=True, type=int)
+    remove_product.set_defaults(func=delete_product)
 
     
