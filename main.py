@@ -12,4 +12,12 @@ def show_products(args) :
             print(p.to_dict())
 
 
- 
+def show_product_by_id(args) :
+    id = args.id
+    product = next((p for p in products if p.id == id), None)
+    if product :
+        print(product.to_dict())
+    else :
+        print('❌ Product not found')
+
+
