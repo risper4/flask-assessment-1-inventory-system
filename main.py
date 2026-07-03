@@ -78,4 +78,14 @@ def main() :
     add_product.add_argument('--price', required=True, type=int)
     add_product.set_defaults(func=create_product)
 
+
+    #Update a specific product
+    update_item = subparser.add_parser('update-product', help='Updating a specific product')
+    update_item.add_argument('--id', required=True, type=int)
+    update_item.add_argument('--price', required=True, type=int)
+    update_item.set_defaults(func=update_product)
+
+
+    #
+
     
