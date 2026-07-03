@@ -38,4 +38,17 @@ def update_product(args) :
         product.name = args.name
         print(f'✅ Product {args.id} successfully updated')
         print(product.to_dict())
+
+
+def delete_product(args) :
+    id = args.id
+    global products
+    product = next((p for p in products if p.id == id), None)
+    if not product :
+        print('❌ Product not found')
+        return
+    else :
+        products = [p for p in products if p.id != id]
+        return('✅ Product successfully added')
+
     
