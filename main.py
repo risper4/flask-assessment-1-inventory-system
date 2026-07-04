@@ -48,6 +48,7 @@ def delete_product(args) :
 
     response = requests.delete(f'{url}/inventory/{id}')
     response.raise_for_status()
+    print('Product successfully deleted')
     
     
 def get_product_details(args) :
