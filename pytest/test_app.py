@@ -55,3 +55,17 @@ def test_update_product(client) :
 def test_product_not_updated():
     response = client.patch('inventory/500', json={'price':70})
     assert response.status_code == 404
+
+
+# DELETE specific product
+def test_delete_product(client) :
+    response = client.delete('/inventory/1')
+    assert response.status_code()
+    get_response = client.get('/inventory')
+    ids = [p['id'] for p in get_response.get_json()]
+    assert 1 not in ids
+
+def test_product_not_updated():
+    response = client.delete('inventory/500', json={'price':70})
+    assert response.status_code == 404
+
