@@ -36,3 +36,10 @@ def test_product_not_found(client) :
     assert response.status_code == 404
 
 # POST a new product
+def test_create_product(client) :
+    response = client.post('/inventory', json={'name':'Prime flour', 'price':169})
+    assert response.status_code == 200
+    data = response.get_json()
+    assert len(data) == 2
+    assert data['name'] == 'Milk'
+    assert data['id'] == 2
