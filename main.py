@@ -7,18 +7,18 @@ url = 'http://127.0.0.1:5555'
 def show_products(args) :
     response = requests.get(f'{url}/inventory')
     response.raise_for_status()
-    print('These are the products :')
+    print('These are the products : ')
     for product in response.json() :
         print(product)
 
 
 def show_product_by_id(args) :
     id = args.id
-    product = next((p for p in products if p.id == id), None)
-    if product :
-        print(product.to_dict())
-    else :
-        print('❌ Product not found')
+    response = requests.get(f'{url}/inventory/{id}')
+    response.raise_for_status()
+    data = response.json()
+    print(data)
+    
 
 
 def create_product(args) :
