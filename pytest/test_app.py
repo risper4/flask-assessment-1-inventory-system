@@ -14,4 +14,12 @@ def reset_products():
     products.clear()
     products.append(Product(id=1, name='Apples', price=50))
     yield
-    
+
+
+# GET all products
+def test_get_all_products(client) :
+    response = client.get('/inventory')
+    assert response.status_code == 200
+    data = response.get_json()
+    assert len(data) == 1
+    assert data[0]['name'] == 'Apples'
