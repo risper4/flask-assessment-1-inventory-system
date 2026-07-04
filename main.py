@@ -1,57 +1,56 @@
 import argparse
 
-from data import products, Product, get_product_details
+import requests
+
+from data import get_product_details
+
+url = 'http://127.0.0.1:5555'
 
 def show_products(args) :
-    if not products :
-        print('❌No current products yet')
-        return
-    else :
-        for p in products :
-            print('These are the current products : ')
-            print(p.to_dict())
+    response = requests.get(f'{url}/inventory')
+    response.raise_for_status()
+    print('These are the products : ')
+    for product in response.json() :
+        print(product)
 
 
 def show_product_by_id(args) :
     id = args.id
-    product = next((p for p in products if p.id == id), None)
-    if product :
-        print(product.to_dict())
-    else :
-        print('❌ Product not found')
+
+    response = requests.get(f'{url}/inventory/{id}')
+    response.raise_for_status()
+    data = response.json()
+    print(data)
+    
 
 
 def create_product(args) :
-    new_id = max((p.id for p in products)) + 1 if products else 1
-    new_product = Product(id=new_id, name=args.name, price=args.price)
-    products.append(new_product)
-    print(f'✅ Product {args.name} added successfully added')
+    name = args.name
+    price = args.price
+    
+    response = requests.post(f'{url}/inventory', json={'name':name, 'price':price})
+    response.raise_for_status()
+    print(f'Added {name} : {price}')
 
 
 def update_product(args) :
     id = args.id
-    product = next((p for p in products if p.id == id), None)
-    if not product :
-        print('❌ Product not found')
-        return
-    else :
-        product.price = args.price
-        print(f'✅ Product {args.id} successfully updated')
-        print(product.to_dict())
+    price = args.price
+    
+    response = requests.patch(f'{url}/inventory/{id}', json={'price':price})
+    response.raise_for_status()
+    data = response.json()
+    print(data)
 
 
 def delete_product(args) :
     id = args.id
-    global products
-    product = next((p for p in products if p.id == id), None)
-    if not product :
-        print('❌ Product not found')
-        return
-    else :
-        products = [p for p in products if p.id != id]
-        return('✅ Product successfully added')
-    
 
+    response = requests.delete(f'{url}/inventory/{id}')
+    response.raise_for_status()
+    print('Product successfully deleted')
+    
+    
 def get_product_details(args) :
     barcode = args.barcode
     get_product_details(barcode)
