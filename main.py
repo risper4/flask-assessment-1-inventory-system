@@ -26,21 +26,19 @@ def create_product(args) :
     name = args.name
     price = args.price
     
-    response = requests.get(f'{url}/inventory', json={'name':name, 'price':price})
+    response = requests.post(f'{url}/inventory', json={'name':name, 'price':price})
     response.raise_for_status()
     print(f'Added {name} : {price}')
 
 
 def update_product(args) :
     id = args.id
-    product = next((p for p in products if p.id == id), None)
-    if not product :
-        print('❌ Product not found')
-        return
-    else :
-        product.price = args.price
-        print(f'✅ Product {args.id} successfully updated')
-        print(product.to_dict())
+    price = args.price
+    
+    response = requests.patch(f'{url}/inventory/{id}', json={'price':price})
+    response.raise_for_status()
+    data = response.json()
+    print(data)
 
 
 def delete_product(args) :
