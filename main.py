@@ -1,15 +1,15 @@
 import argparse
 
-from data import products, Product, get_product_details
+import requests
+
+url = 'http://127.0.0.1:5555'
 
 def show_products(args) :
-    if not products :
-        print('❌No current products yet')
-        return
-    else :
-        for p in products :
-            print('These are the current products : ')
-            print(p.to_dict())
+    response = requests.get(f'{url}/inventory')
+    response.raise_for_status()
+    print('These are the products :')
+    for product in response.json() :
+        print(product)
 
 
 def show_product_by_id(args) :
