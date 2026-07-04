@@ -43,3 +43,15 @@ def test_create_product(client) :
     assert len(data) == 2
     assert data['name'] == 'Milk'
     assert data['id'] == 2
+
+
+# PATCH specific product
+def test_update_product(client) :
+    response = client.patch('inventory/1', json={'price':70})
+    assert response.status_code == 200
+    data = response.json()
+    assert data['price'] == 70
+
+def test_product_not_updated():
+    response = client.patch('inventory/500', json={'price':70})
+    assert response.status_code == 404
