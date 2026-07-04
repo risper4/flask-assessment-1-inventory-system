@@ -14,6 +14,7 @@ def show_products(args) :
 
 def show_product_by_id(args) :
     id = args.id
+
     response = requests.get(f'{url}/inventory/{id}')
     response.raise_for_status()
     data = response.json()
@@ -22,10 +23,12 @@ def show_product_by_id(args) :
 
 
 def create_product(args) :
-    new_id = max((p.id for p in products)) + 1 if products else 1
-    new_product = Product(id=new_id, name=args.name, price=args.price)
-    products.append(new_product)
-    print(f'✅ Product {args.name} added successfully added')
+    name = args.name
+    price = args.price
+    
+    response = requests.get(f'{url}/inventory', json={'name':name, 'price':price})
+    response.raise_for_status()
+    print(f'Added {name} : {price}')
 
 
 def update_product(args) :
