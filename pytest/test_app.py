@@ -23,3 +23,16 @@ def test_get_all_products(client) :
     data = response.get_json()
     assert len(data) == 1
     assert data[0]['name'] == 'Apples'
+
+
+# GET product by id
+def test_specific_product(client) :
+    response = client.get('/inventory/1')
+    assert response.status_code == 200
+    assert response.get_json()['name'] == 'Apples'
+
+def test_product_not_found(client) : 
+    response = client.get('/inventory/500')
+    assert response.status_code == 404
+
+# POST a new product
