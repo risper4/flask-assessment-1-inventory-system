@@ -2,6 +2,8 @@ import argparse
 
 import requests
 
+from data import get_product_details
+
 url = 'http://127.0.0.1:5555'
 
 def show_products(args) :
@@ -43,16 +45,11 @@ def update_product(args) :
 
 def delete_product(args) :
     id = args.id
-    global products
-    product = next((p for p in products if p.id == id), None)
-    if not product :
-        print('❌ Product not found')
-        return
-    else :
-        products = [p for p in products if p.id != id]
-        return('✅ Product successfully added')
-    
 
+    response = requests.delete(f'{url}/inventory/{id}')
+    response.raise_for_status()
+    
+    
 def get_product_details(args) :
     barcode = args.barcode
     get_product_details(barcode)
